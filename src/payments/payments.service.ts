@@ -14,4 +14,12 @@ export class PaymentsService {
 
         return "payment sucesfull"
     }
+
+    FindAllPayments(){
+        return this.payments
+    }
+
+    FindPaymentsById(id: number){
+        return this.payments.find((payment) => payment.id === id)
+    }
 }

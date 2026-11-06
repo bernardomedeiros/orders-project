@@ -14,7 +14,7 @@ export class OrdersService {
         private readonly paymentsService: PaymentsService,
     ) { }
 
-    createOrder(productId: number, quantity: number, paymentMethod: string) {
+    async createOrder(productId: number, quantity: number, paymentMethod: string) {
         const product = this.productService.findById(productId)
         const stock = product?.stock
 
@@ -28,9 +28,13 @@ export class OrdersService {
             const lastId = this.orders.length
             const newOrder = { id: lastId + 1, product: product.name, totalPrice: totalOrder, paymentMethod: paymentMethod }
 
-            this.orders.push(newOrder)
-
-            return "ok"
+            const payment = await this.paymentsService.createPayment(newOrder.id, newOrder.paymentMethod)
+            if(payment){
+                this.orders.push(newOrder)
+                return "Order created"
+            }else{
+                throw new Error("Payment failed")
+            }
         }
     }
 
