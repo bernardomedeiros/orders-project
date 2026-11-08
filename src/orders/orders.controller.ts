@@ -7,9 +7,9 @@ import { Order } from '../types/types.js';
 export class OrdersController {
     constructor(private readonly ordersService: OrdersService) {}
     @Post()
-    create(@Body() createOrderDto: CreateOrderDto){
+    async create(@Body() createOrderDto: CreateOrderDto){
         const { productId, quantity, paymentMethod } = createOrderDto
-        const orderCreated = this.ordersService.createOrder(productId, quantity, paymentMethod)
+        const orderCreated = await this.ordersService.createOrder(productId, quantity, paymentMethod)
 
         return {
             message: "order created",
@@ -23,7 +23,7 @@ export class OrdersController {
 
     @Get(':id')
     findById(@Param('id', ParseIntPipe) id: number): Order | undefined {
-        return this.findById(id)
+        return this.ordersService.findOrdersById(id)
     }
 
 }
