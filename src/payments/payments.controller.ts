@@ -10,11 +10,11 @@ export class PaymentsController {
 
     @Get()
     getAllPayments() {
-        return this.paymentService.FindAllPayments()
+        return this.paymentService.FindAllPayments();
     }
 
     @Get(':id')
     getPaymentById(@Param('id', ParseIntPipe) id: number): Payment | undefined {
-        return this.paymentService.FindPaymentsById(id)
+        return this.paymentService.FindPaymentsById(id);
     }
 }

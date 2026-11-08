@@ -9,22 +9,22 @@ export class OrdersController {
     
     @Post()
     async create(@Body() createOrderDto: CreateOrderDto){
-        const { productId, quantity, paymentMethod } = createOrderDto
-        const orderCreated = await this.ordersService.createOrder(productId, quantity, paymentMethod)
+        const { productId, quantity, paymentMethod } = createOrderDto;
+        const orderCreated = await this.ordersService.createOrder(productId, quantity, paymentMethod);
 
         return {
             message: "order created",
             orderCreated
-        }
+        };
     }
 
     @Get()
     findAllOrders(): Order[] {
-        return this.ordersService.findOrders()
+        return this.ordersService.findOrders();
     }
 
     @Get(':id')
     findById(@Param('id', ParseIntPipe) id: number): Order | undefined {
-        return this.ordersService.findOrdersById(id)
+        return this.ordersService.findOrdersById(id);
     }
 }
