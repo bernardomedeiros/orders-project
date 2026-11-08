@@ -1,11 +1,12 @@
 import { Body, Controller, Post, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { OrdersService } from './orders.service.js';
-import { CreateOrderDto } from './dto/create-order-dto.js';
+import { CreateOrderDto } from './dto/create-order.dto.js';
 import { Order } from '../types/types.js';
 
 @Controller('orders')
 export class OrdersController {
     constructor(private readonly ordersService: OrdersService) {}
+    
     @Post()
     async create(@Body() createOrderDto: CreateOrderDto){
         const { productId, quantity, paymentMethod } = createOrderDto
@@ -16,6 +17,7 @@ export class OrdersController {
             orderCreated
         }
     }
+
     @Get()
     findAllOrders(): Order[] {
         return this.ordersService.findOrders()
@@ -25,5 +27,4 @@ export class OrdersController {
     findById(@Param('id', ParseIntPipe) id: number): Order | undefined {
         return this.ordersService.findOrdersById(id)
     }
-
 }
