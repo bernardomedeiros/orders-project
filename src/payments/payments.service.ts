@@ -15,11 +15,11 @@ export class PaymentsService {
         return "payment sucesfull";
     }
 
-    FindAllPayments(){
+    findAllPayments(){
         return this.payments;
     }
 
-    FindPaymentsById(id: number){
+    findPaymentsById(id: number){
         return this.payments.find((payment) => payment.id === id);
     }
 }

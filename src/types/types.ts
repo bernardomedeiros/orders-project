@@ -4,10 +4,3 @@ export interface Product {
     price: number,
     stock: number
 }
-
-export interface Order{
-    id: number,
-    product: string,
-    totalPrice: number,
-    paymentMethod: string
-}

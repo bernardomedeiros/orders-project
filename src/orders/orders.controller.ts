@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { OrdersService } from './orders.service.js';
 import { CreateOrderDto } from './dto/create-order.dto.js';
-import { Order } from '../types/types.js';
+import { OrderResponseDTO } from './dto/order-response.dto.js';
 
 @Controller('orders')
 export class OrdersController {
@@ -19,12 +19,12 @@ export class OrdersController {
     }
 
     @Get()
-    findAllOrders(): Order[] {
+    findAllOrders(): OrderResponseDTO[] {
         return this.ordersService.findOrders();
     }
 
     @Get(':id')
-    findById(@Param('id', ParseIntPipe) id: number): Order | undefined {
-        return this.ordersService.findOrdersById(id);
+    findById(@Param('id', ParseIntPipe) data: OrderResponseDTO): OrderResponseDTO | undefined {
+        const responde = this.ordersService.findOrdersById(data.id);
     }
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ProductsService } from '../products/products.service.js';
 import { PaymentsService } from '../payments/payments.service.js';
-import { Order } from '../types/types.js';
+import { CreateOrderDto } from './dto/create-order.dto.js';
+import { OrderResponseDTO } from './dto/order-response.dto.js';
 
 @Injectable()
 export class OrdersService {
     private orders = [
-        { id: 1, product: "Bola de Futebol", productId: 1, totalPrice: 100, paymentMethod: "Money" }
+        { id: 1, product: "Bola de Futebol", productId: 1, quantity: 2, totalPrice: 100, paymentMethod: "Money" }
     ];
 
     constructor(
@@ -23,7 +24,7 @@ export class OrdersService {
             }
             const totalOrder = quantity * product.price;
             const lastId = this.orders.length;
-            const newOrder = { id: lastId + 1, product: product.name, productId: product.id, totalPrice: totalOrder, paymentMethod: paymentMethod };
+            const newOrder: CreateOrderDto = { id: lastId + 1, product: product.name, productId: product.id, quantity: quantity, totalPrice: totalOrder, paymentMethod: paymentMethod };
 
             const payment = await this.paymentsService.createPayment(newOrder.id, newOrder.paymentMethod, newOrder.totalPrice);
 
@@ -40,7 +41,10 @@ export class OrdersService {
         return this.orders;
     }
 
-    findOrdersById(id: number) {
-        return this.orders.find((order) => order.id === id)
+    findOrdersById(data: OrderResponseDTO) {
+        const response = this.orders.find((order) => order.id === data.id)
+        return{
+            
+        }
     }
 }
