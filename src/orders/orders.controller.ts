@@ -24,7 +24,7 @@ export class OrdersController {
     }
 
     @Get(':id')
-    findById(@Param('id', ParseIntPipe) data: OrderResponseDTO): OrderResponseDTO | undefined {
-        const responde = this.ordersService.findOrdersById(data.id);
+    findById(@Param('id', ParseIntPipe) id: number): OrderResponseDTO | undefined {
+        return this.ordersService.findOrdersById(id);
     }
 }

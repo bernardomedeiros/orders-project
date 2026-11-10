@@ -16,4 +16,12 @@ export class ProductsService {
         return this.products.find((product) => product.id === id);
     }
 
+    updateProduct(productId: number, quantity: number){
+        const product = this.products.find((product) => product.id === productId);
+        if(product?.stock !== undefined){
+            product.stock - quantity;
+            return "Product stock has been changed"
+        }
+    }
+
 }

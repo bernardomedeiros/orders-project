@@ -25,10 +25,10 @@ export class OrdersService {
             const totalOrder = quantity * product.price;
             const lastId = this.orders.length;
             const newOrder: CreateOrderDto = { id: lastId + 1, product: product.name, productId: product.id, quantity: quantity, totalPrice: totalOrder, paymentMethod: paymentMethod };
-
             const payment = await this.paymentsService.createPayment(newOrder.id, newOrder.paymentMethod, newOrder.totalPrice);
 
             if(payment){
+                this.productService.updateProduct(productId, quantity)
                 this.orders.push(newOrder)
                 return "Order created";
             }else{
@@ -41,10 +41,7 @@ export class OrdersService {
         return this.orders;
     }
 
-    findOrdersById(data: OrderResponseDTO) {
-        const response = this.orders.find((order) => order.id === data.id)
-        return{
-            
-        }
+    findOrdersById(id: number): OrderResponseDTO | undefined {
+        return this.orders.find((order) => order.id === id);
     }
 }
